@@ -4,9 +4,9 @@ Gig Economy Simulator
 ## Schema
 ```
 Passenger
- id       Integer
- name     Text
- location Text
+  id         Integer
+  name       Text
+  location   Text
 Driver
   id        Integer
   driver    Integer
@@ -16,6 +16,6 @@ Driver
   fare      Float
   tip       Float
 Route
-  id
+  id        Text
   tile(s)   [Text]
 ```
