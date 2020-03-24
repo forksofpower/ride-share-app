@@ -19,3 +19,6 @@ db/*.db
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
+
+# Rails
+schema.rb
