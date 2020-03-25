@@ -1,8 +1,8 @@
 class CreateRides < ActiveRecord::Migration[5.2]
   def change
     create_table :rides do |t|
-      t.integer :driver
-      t.integer :passenger
+      t.integer :driver_id
+      t.integer :passenger_id
       t.integer :route
       t.string  :location
       t.float :fare
@@ -10,6 +10,5 @@ class CreateRides < ActiveRecord::Migration[5.2]
     
       t.timestamps
     end
-    
   end
 end

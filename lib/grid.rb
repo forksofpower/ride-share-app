@@ -7,10 +7,10 @@ class Grid
         @width = width
     end
 
-    def linear_distance(tile_a, tile_b)
+    def self.linear_distance(tile_a, tile_b)
         # calculate the distance between two tiles
-        x1, y1 = self.class.tile_to_coordinates(tile_a)
-        x2, y2 = self.class.tile_to_coordinates(tile_b)
+        x1, y1 = self.tile_to_coordinates(tile_a)
+        x2, y2 = self.tile_to_coordinates(tile_b)
         Math.sqrt((x2 - x1)**2 + (y2 - y1)**2).round(4)
     end
 
@@ -22,7 +22,7 @@ class Grid
         # start horizontal
         x, y = tile_a.x, tile_b.y
     
-        turn_point = self.coordinates_to_tile(x, y)
+        turn_point = Tile.new(x, y)
     
         # array of three tiles
         [tile_a, turn_point, tile_b]
@@ -33,9 +33,9 @@ class Grid
         max_x, min_x = tile.x + distance, tile.x - distance
         max_y, min_y = tile.y + distance, tile.y - distance
     
-        bounded_colletion = collection.map {|x| Tile.from_string(x.tile_id)}.select do |t| 
-          t.x <= max_x && t.x >= min_x && t.y <= max_y && t.y >= min_y 
-        end
+        # bounded_colletion = collection.map {|x| Tile.from_string(x.location)}.select do |t| 
+        #   t.x <= max_x && t.x >= min_x && t.y <= max_y && t.y >= min_y 
+        # end
         bounded_colletion.sort_by {|v| linear_distance(tile, v) }
       end
 
