@@ -1,4 +1,6 @@
 require 'bundler'
+require 'faker'
+
 Bundler.require
 
 # setup database
