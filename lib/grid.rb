@@ -28,6 +28,42 @@ class Grid
         [tile_a, turn_point, tile_b]
     end
 
+    def self.find_subdivided_path(start, dest, step)
+        start_tile = Tile.from_string(start)
+        end_tile   = Tile.from_string(dest)
+
+        # start horizontal
+        x, y = end_tile.x, start_tile.y
+
+        # midpoint
+        turn_tile = Tile.new(x, y)
+
+        # subdivide x values between start_tile and turn_tile
+        # x_divisions = (tx - xx).abs / step # hardcoded subdivision level
+        x_divisions = (turn_tile.x - start_tile.x).abs / step # hardcoded subdivision level
+        
+        # binding.pry
+        first_leg = []
+        start_x = start_tile.x
+
+        (1..x_divisions).to_a.each do |i|
+            # binding.pry
+            first_leg << Tile.new( (i*step) + start_tile.x, y )
+        end
+
+        first_leg
+        # subdivide y values between turn_tile and end_tile
+        second_leg = []
+        y_divisions = (turn_tile.y - end_tile.y).abs / 3
+
+        (1..x_divisions).to_a.each do |i|
+            # binding.pry
+            second_leg << Tile.new(end_tile.x, (i*step) + start_tile.y )
+        end
+
+        [start_tile, first_leg, turn_tile, second_leg, end_tile].flatten
+    end
+
     def self.find_within_distance(tile_id, collection, distance)
         tile = Tile.from_string(tile_id)
         max_x, min_x = tile.x + distance, tile.x - distance
