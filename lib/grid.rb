@@ -35,33 +35,50 @@ class Grid
         # start horizontal
         x, y = end_tile.x, start_tile.y
 
-        # midpoint
+        # right angle
         turn_tile = Tile.new(x, y)
 
+        # x direction
+        if (start_tile.x > end_tile.x)
+            # moving left
+            x_direction = 'left'
+        else
+            # moving right
+            x_direction = 'right'
+        end
+
+        # y direction
+        if (start_tile.y > end_tile.y)
+            # moving down
+            y_direction = 'down'
+        else
+            # moving right
+            y_direction = 'up'
+        end
+
         # subdivide x values between start_tile and turn_tile
-        # x_divisions = (tx - xx).abs / step # hardcoded subdivision level
-        x_divisions = (turn_tile.x - start_tile.x).abs / step # hardcoded subdivision level
-        
-        # binding.pry
-        first_leg = []
-        start_x = start_tile.x
+        x_leg = []
+        x_divisions = (turn_tile.x - start_tile.x).abs / step
+        x_count = (1..x_divisions).to_a
+        x_count = x_count.reverse if x_direction == 'left'
 
-        (1..x_divisions).to_a.each do |i|
+        x_count.each do |i|
             # binding.pry
-            first_leg << Tile.new( (i*step) + start_tile.x, y )
+            x_leg << Tile.new( (i*step), y)
         end
 
-        first_leg
         # subdivide y values between turn_tile and end_tile
-        second_leg = []
-        y_divisions = (turn_tile.y - end_tile.y).abs / 3
+        y_leg = []
+        y_divisions = (turn_tile.y - end_tile.y).abs / step
+        y_count = (1..y_divisions).to_a
+        y_count = y_count.reverse if y_direction == 'down'
 
-        (1..x_divisions).to_a.each do |i|
+        y_count.each do |i|
             # binding.pry
-            second_leg << Tile.new(end_tile.x, (i*step) + start_tile.y )
+            y_leg << Tile.new(end_tile.x, (i*step) )
         end
 
-        [start_tile, first_leg, turn_tile, second_leg, end_tile].flatten
+        [start_tile, x_leg, turn_tile, y_leg, end_tile].flatten
     end
 
     def self.find_within_distance(tile_id, collection, distance)
@@ -94,6 +111,10 @@ class Tile
 
     def coordinates
         [@x, @y]
+    end
+
+    def to_s
+        @id
     end
 
     def self.from_string(tile_string)
