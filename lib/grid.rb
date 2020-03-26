@@ -9,8 +9,8 @@ class Grid
 
     def self.linear_distance(tile_a, tile_b)
         # calculate the distance between two tiles
-        x1, y1 = self.tile_to_coordinates(tile_a)
-        x2, y2 = self.tile_to_coordinates(tile_b)
+        x1, y1 = Tile.tile_to_coordinates(tile_a)
+        x2, y2 = Tile.tile_to_coordinates(tile_b)
         Math.sqrt((x2 - x1)**2 + (y2 - y1)**2).round(4)
     end
 
@@ -91,14 +91,6 @@ class Grid
         # end
         bounded_colletion.sort_by {|v| linear_distance(tile, v) }
       end
-
-    def self.tile_to_coordinates(tile)
-        tile.gsub("tl-", "").split("-").map {|s| s.to_f }
-    end
-
-    def self.coordinates_to_tile(x=0, y=0)
-        "tl-#{x}-#{y}"
-    end
 end
 
 class Tile
