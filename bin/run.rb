@@ -80,7 +80,7 @@ def game_loop(game)
             sleep(0.75)
         end
         clear_screen
-        puts "A terrible pandemic swept across the grid instance and rendered the transportation system incapacitated..."
+        puts "A pandemic swept across the grid instance and rendered the transportation system incapacitated...".red
         puts "press Enter to continue!"
         continue_on_input
     end

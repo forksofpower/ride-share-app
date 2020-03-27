@@ -12,4 +12,6 @@ gem "ticketmaster-sdk"
 gem "json"
 gem "curses"
 gem "tty-prompt"
+gem "colorize"
+
 # gem "ascii_grid", github: 'forksofpower/Ascii-Grid'
