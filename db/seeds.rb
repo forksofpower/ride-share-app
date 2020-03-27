@@ -13,3 +13,6 @@ end
     location = "tl-0-0"
     Passenger.create(name: name, location: location)
 end
+
+
+binding.pry
