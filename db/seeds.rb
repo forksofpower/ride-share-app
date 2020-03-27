@@ -1,14 +1,22 @@
 require_relative '../config/environment.rb'
 
-DRIVER_SEED_COUNT = 5
+DRIVER_SEED_COUNT = 4
+USER_SEED_COUNT = 4
 PASSENGER_SEED_COUNT = 50
 EVENT_SEED_COUNT = 50
+
+#users
+USER_SEED_COUNT.times do |i|
+    name = Faker::Name.unique.name_with_middle
+    email = Faker::Internet.unique.email
+    User.create(name: name, email: email, npc: true)
+end
 
 #drivers
 DRIVER_SEED_COUNT.times do |i|
     name = Faker::Name.unique.name_with_middle
     location = "tl-99-99"
-    Driver.create(name: name, location: location)
+    Driver.create(name: name, location: location, user: User.all[i])
 end
 
 #passengers
@@ -39,9 +47,6 @@ scheduled_events.each do |e|
         venue_name: e.venues.first.name
     )
 end
-
-
-
 
 # ap JSON.parse(events)
 #  or maybe
