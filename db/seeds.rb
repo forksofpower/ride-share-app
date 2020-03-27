@@ -40,9 +40,6 @@ scheduled_events.each do |e|
     )
 end
 
-
-
-
 # ap JSON.parse(events)
 #  or maybe
 # ap JSON.parse(response.results)
