@@ -15,8 +15,9 @@ end
 #drivers
 DRIVER_SEED_COUNT.times do |i|
     name = Faker::Name.unique.name_with_middle
-    # location = "tl-99-99"
-    Driver.create(name: name, user: User.all[i])
+    location = "tl-00-00"
+    driver = Driver.create(name: name, user: User.all[i], location: location)
+    puts driver.name + " " + driver.location
 end
 
 #passengers
