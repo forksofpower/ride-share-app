@@ -39,19 +39,21 @@ def game_loop(game)
     puts "Press enter to start the ride..."
     continue_on_input
 
-
     # LOOP GOES HERE
-    while true
-        # check if drivers have rides
+    1.times do
+        # Assign idle drivers a ride
         Driver.all.each do |driver|
-            # binding.pry
-            if driver.ride == nil && driver.user.npc
-                puts driver.name
+            if driver.ride == nil
                 first_passenger = Passenger.where.not(location: nil).sample
                 first_event = Event.where.not(location: nil).sample
                 path = Grid.find_subdivided_path(driver.location, first_passenger.location, 2)
                             .map{|tile| tile.to_s}
-                first_ride = Ride.create(
+
+                if !driver.location
+                    driver.location = game.grid.random_tile
+                    driver.save
+                end
+                ride = Ride.create(
                     driver: driver,
                     passenger: first_passenger,
                     start_location: driver.location,
@@ -60,10 +62,27 @@ def game_loop(game)
                     path: path.join(" "),
                     fare: path.length * 5
                 )
+                puts "You were assigned a ride!"
+                puts "\tPassenger: #{ride.passenger.name}"
+                puts "\tDestination: #{ride.destination}"
+                puts "\tFare: $#{ride.fare}"
             end
         end
 
-        # binding.pry
+        # Driver.all.each do |driver|
+        #     if driver.ride != nil
+
+        #     end
+        # end
+
+        5.times do
+            puts "..."
+            sleep(0.75)
+        end
+        clear_screen
+        puts "A terrible pandemic swept across the grid instance and rendered the transportation system incapacitated..."
+        puts "press Enter to continue!"
+        continue_on_input
     end
     # binding.pry
 end

@@ -157,15 +157,16 @@ class Tile
     def to_s
         @id
     end
-
-
-
+    
     def self.from_string(tile_string)
         x, y = self.tile_to_coordinates(tile_string)
         tile = self.new(x, y)
     end
 
     def self.tile_to_coordinates(tile)
+        if tile.class.to_s != "String"
+            binding.pry
+        end
         tile.gsub("tl-", "").split("-").map {|s| s.to_i }
     end
 
