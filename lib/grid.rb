@@ -28,6 +28,12 @@ class Grid
         [tile_a, turn_point, tile_b]
     end
 
+    def random_tile
+        x = rand(0..self.width)
+        y = rand(0..self.height)
+        Tile.coordinates_to_tile(x, y)
+    end
+
     def self.find_subdivided_path(start, dest, step)
         start_tile = Tile.from_string(start)
         end_tile   = Tile.from_string(dest)

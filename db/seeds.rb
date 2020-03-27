@@ -15,15 +15,15 @@ end
 #drivers
 DRIVER_SEED_COUNT.times do |i|
     name = Faker::Name.unique.name_with_middle
-    location = "tl-99-99"
-    Driver.create(name: name, location: location, user: User.all[i])
+    # location = "tl-99-99"
+    Driver.create(name: name, user: User.all[i])
 end
 
 #passengers
 PASSENGER_SEED_COUNT.times do |i|
     name = Faker::Name.unique.name_with_middle
-    location = "tl-0-0"
-    Passenger.create(name: name, location: location)
+    # location = "tl-0-0"
+    Passenger.create(name: name)
 end
 
 
@@ -43,7 +43,7 @@ scheduled_events.each do |e|
     Event.create(
         date: Time.now,
         name: e.name,
-        location: "tl-35-35",
+        # location: "tl-35-35",
         venue_name: e.venues.first.name
     )
 end
