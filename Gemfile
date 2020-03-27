@@ -8,5 +8,8 @@ gem "pry"
 gem "require_all"
 gem "faker"
 gem "rake"
-
-# gem "ascii_grid", github: 'forksofpower/Ascii-Grid'd
+gem "ticketmaster-sdk"
+gem "json"
+gem "curses"
+gem "tty-prompt"
+# gem "ascii_grid", github: 'forksofpower/Ascii-Grid'
