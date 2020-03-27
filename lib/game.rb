@@ -27,7 +27,6 @@ class Game
             driver.save
         end 
         # put user-driver on random-tile
-
         # start user with ride
     end
 end

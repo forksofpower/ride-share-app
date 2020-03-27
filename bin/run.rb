@@ -17,9 +17,38 @@ end
 
 def game_loop(game)
     # populate grid with events and passengers
-    Driver.all.each do |d|
-        puts "#{d.user.name} is driving today!"
+    # Driver.all.each do |d|
+    #     puts "#{d.user.name} is driving today!"
+    # end
+
+    driver = game.user.driver
+    first_passenger = Passenger.where.not(location: nil).sample
+    first_event = Event.where.not(location: nil).sample
+    path = Grid.find_subdivided_path(driver.location, first_passenger.location, 2)
+                .map{|tile| tile.to_s}
+    first_ride = Ride.create(
+        driver: driver,
+        passenger: first_passenger,
+        start_location: driver.location,
+        destination: first_passenger.location,
+        path: path.join(" "),
+        fare: path.length * 5
+    )
+    puts "You're Starting with a passeger!"
+    puts "Press enter to start the ride..."
+    continue_on_input
+
+
+    # LOOP GOES HERE
+    while true
+        puts "Press enter to continue..."
+        
+        
+        # check if drivers have rides
+        things = Driver.where(ride_id: nil)
+        binding.pry
     end
+    # binding.pry
 end
 
 def welcome_message(user)
@@ -73,6 +102,10 @@ def new_user(name, email)
 end
 
 def get_user_input
+    gets.chomp
+end
+
+def continue_on_input
     gets.chomp
 end
 

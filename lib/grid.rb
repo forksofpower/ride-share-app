@@ -7,6 +7,49 @@ class Grid
         @width = width
     end
 
+    # move object number of steps in a direction using
+    #   grid dimensions as a constraint
+    def move(object, direction, step)
+
+        if !object.location || !valid_tile?(object.location)
+            return nil
+        else
+            # get new tile in direction by steps
+            x, y = Tile.from_string(object.location).coordinates
+
+            case direction
+            when 'up'
+                y += step
+            when 'right'
+                x += step            
+            when 'down'
+                y -= step
+            when 'left'
+                x -= step
+            else
+                return nil
+            end
+            new_tile = Tile.new(x, y).to_s
+
+            if (valid_tile?(new_tile))
+                object.location = new_tile
+                return object
+            end
+        end
+        return nil
+    end
+
+    def move_to(object, new_location)
+
+    end
+
+
+    # does tile fit within bounds of the grid dimensions?
+    def valid_tile?(tile_id)
+        x, y = Tile.from_string(tile_id).coordinates
+        (x <= self.width && x >= 0 && y <= self.height && y >= 0)
+    end
+
     def self.linear_distance(tile_a, tile_b)
         # calculate the distance between two tiles
         x1, y1 = Tile.tile_to_coordinates(tile_a)
@@ -114,6 +157,8 @@ class Tile
     def to_s
         @id
     end
+
+
 
     def self.from_string(tile_string)
         x, y = self.tile_to_coordinates(tile_string)
