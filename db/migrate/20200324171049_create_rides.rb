@@ -6,6 +6,7 @@ class CreateRides < ActiveRecord::Migration[5.2]
       t.string :path
       t.string  :start_location
       t.string :destination
+      t.string :status
       t.float :fare
       t.float :tip
     

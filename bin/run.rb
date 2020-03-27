@@ -21,19 +21,20 @@ def game_loop(game)
     #     puts "#{d.user.name} is driving today!"
     # end
 
-    driver = game.user.driver
-    first_passenger = Passenger.where.not(location: nil).sample
-    first_event = Event.where.not(location: nil).sample
-    path = Grid.find_subdivided_path(driver.location, first_passenger.location, 2)
-                .map{|tile| tile.to_s}
-    first_ride = Ride.create(
-        driver: driver,
-        passenger: first_passenger,
-        start_location: driver.location,
-        destination: first_passenger.location,
-        path: path.join(" "),
-        fare: path.length * 5
-    )
+    # driver = game.user.driver
+    # first_passenger = Passenger.where.not(location: nil).sample
+    # first_event = Event.where.not(location: nil).sample
+    # path = Grid.find_subdivided_path(driver.location, first_passenger.location, 2)
+    #             .map{|tile| tile.to_s}
+    # # first_ride = Ride.create(
+    #     driver: driver,
+    #     passenger: first_passenger,
+    #     start_location: driver.location,
+    #     destination: first_passenger.location,
+    #     status: 'pickup',
+    #     path: path.join(" "),
+    #     fare: path.length * 5
+    # )
     puts "You're Starting with a passeger!"
     puts "Press enter to start the ride..."
     continue_on_input
@@ -41,12 +42,28 @@ def game_loop(game)
 
     # LOOP GOES HERE
     while true
-        puts "Press enter to continue..."
-        
-        
         # check if drivers have rides
-        things = Driver.where(ride_id: nil)
-        binding.pry
+        Driver.all.each do |driver|
+            # binding.pry
+            if driver.ride == nil && driver.user.npc
+                puts driver.name
+                first_passenger = Passenger.where.not(location: nil).sample
+                first_event = Event.where.not(location: nil).sample
+                path = Grid.find_subdivided_path(driver.location, first_passenger.location, 2)
+                            .map{|tile| tile.to_s}
+                first_ride = Ride.create(
+                    driver: driver,
+                    passenger: first_passenger,
+                    start_location: driver.location,
+                    status: 'pickup',
+                    destination: first_passenger.location,
+                    path: path.join(" "),
+                    fare: path.length * 5
+                )
+            end
+        end
+
+        # binding.pry
     end
     # binding.pry
 end
