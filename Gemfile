@@ -8,3 +8,5 @@ gem "pry"
 gem "require_all"
 gem "faker"
 gem "rake"
+
+gem "ascii_grid", git: 'https://github.com/forksofpower/Ascii-Grid'

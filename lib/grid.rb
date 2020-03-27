@@ -90,7 +90,7 @@ class Grid
         #   t.x <= max_x && t.x >= min_x && t.y <= max_y && t.y >= min_y 
         # end
         bounded_colletion.sort_by {|v| linear_distance(tile, v) }
-      end
+    end
 end
 
 class Tile
