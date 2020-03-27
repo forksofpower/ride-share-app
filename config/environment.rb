@@ -1,5 +1,15 @@
 require 'bundler'
+require 'faker'
+
 Bundler.require
 
-ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'db/development.db')
+# setup database
+ActiveRecord::Base.establish_connection(
+    :adapter    => 'sqlite3', 
+    :database   => 'db/development.db'
+)
+ActiveRecord::Base.logger = Logger.new(STDOUT)
+ActiveRecord::Base.logger.level = 1
+# config.active_record.logger = nil
+
 require_all 'lib'
