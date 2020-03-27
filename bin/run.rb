@@ -38,28 +38,30 @@ def user_exists?
     current_user = nil
     user_input = get_user_input
     until user_input == "y" || user_input == "n"
-        invalid_input
+        invalid_user_input
+        puts "Are you a new user?(y/n)"
         user_exists?
     end
 
     if user_input == "y"
-        # puts "Create a new account by entering your email address\nOR type 'login' if you are an existing user."
-        # user_email = get_user_input
-        # if user_email.match(URI::MailTo::EMAIL_REGEXP)
-        #     new_user(user_email)
-        # elsif user_email == "login"
-        #     existing_user
-        # else
-        #     invalid_input
-        #     user_exists?
-        # end
         puts "Enter your name: "
         new_user_name = get_user_input
         puts "Enter your email: "
         new_user_email = get_user_input
-        current_user = new_user(new_user_name, new_user_email)
+        user = User.find_by_email(new_user_email).first
+        if user
+            # user exists
+            puts "User"
+            current_user = user
+        else
+            # create new user
+            current_user = new_user(new_user_name, new_user_email)
+        end
     else
         # ask for user email and find by email
+        puts "Enter your email: "
+        user_email = get_user_input
+        current_user = User.find_by_email(user_email).first
     end
     current_user
 end
@@ -75,7 +77,9 @@ def get_user_input
 end
 
 def invalid_user_input
-    puts "hrrmm something went wrong..."
+    puts "...that's not one of the choices I gave you. Try again."
+    sleep(2)
+    clear_screen
 end
 
 def clear_screen

@@ -26,7 +26,6 @@ class Game
             driver.location = self.grid.random_tile
             driver.save
         end 
-
         # put user-driver on random-tile
 
         # start user with ride
