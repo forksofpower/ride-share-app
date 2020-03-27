@@ -4,6 +4,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :email
       t.boolean :npc
+      t.integer :driver_id
       
       t.timestamps
     end
